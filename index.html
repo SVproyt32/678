@@ -557,7 +557,6 @@
             }
         }
 
-        /* Стили для плашки подтверждения сброса */
         .reset-confirm-overlay {
             display: none;
             position: fixed;
@@ -901,7 +900,6 @@
     const modalCancel = document.getElementById('modalCancel');
     const timePresets = document.querySelectorAll('.time-presets button');
 
-    // Плашка подтверждения сброса
     const resetConfirmOverlay = document.getElementById('resetConfirmOverlay');
     const resetCancelBtn = document.getElementById('resetCancelBtn');
     const resetConfirmBtn = document.getElementById('resetConfirmBtn');
@@ -1000,12 +998,14 @@
     }
 
     // =============================================================
-    //  ОБНОВЛЕНИЕ UI
+    //  ОБНОВЛЕНИЕ UI (С ОКРУГЛЕНИЕМ БАЛАНСА)
     // =============================================================
     function updateUI() {
-        const prefix = balance < 0 ? '-' : '';
-        balanceEl.textContent = `${prefix}${Math.abs(balance)} ₽`;
-        balanceEl.className = 'balance' + (balance < 0 ? ' negative' : '');
+        // Округляем баланс до десятых при отображении
+        const roundedBalance = Math.round(balance * 10) / 10;
+        const prefix = roundedBalance < 0 ? '-' : '';
+        balanceEl.textContent = `${prefix}${Math.abs(roundedBalance).toFixed(1)} ₽`;
+        balanceEl.className = 'balance' + (roundedBalance < 0 ? ' negative' : '');
 
         let good = 0, bad = 0;
         actions.forEach((a, i) => {
@@ -1205,37 +1205,28 @@
     function executeReset() {
         if (soundEnabled) playReset();
         
-        // Сбрасываем все данные
         balance = 0;
         counts = {};
         history = [];
         dailyTracker = {};
         
-        // Закрываем плашку
         hideResetConfirm();
-        
-        // Обновляем UI
         updateUI();
         
-        // Убираем анимации
         document.querySelectorAll('.btn').forEach(b => {
             b.classList.remove('pop', 'show-time-input');
         });
         
-        // Закрываем все модальные окна ввода времени
         document.querySelectorAll('.btn.show-time-input').forEach(b => {
             b.classList.remove('show-time-input');
         });
         
-        // Сохраняем состояние
         saveState();
         
-        // Анимация для баланса
         balanceEl.classList.remove('pop');
         void balanceEl.offsetWidth;
         balanceEl.classList.add('pop');
         
-        // Звук сброса
         setTimeout(() => {
             if (soundEnabled) playReset();
         }, 100);
@@ -1556,7 +1547,6 @@
     updateUI();
     startTimer();
 
-    // Обработчики пресетов
     timePresets.forEach(btn => {
         btn.addEventListener('click', () => {
             const hours = parseFloat(btn.dataset.hours);
@@ -1574,17 +1564,13 @@
         }
     });
 
-    // ✅ ПРАВИЛЬНАЯ ПРИВЯЗКА КНОПКИ ОБНУЛЕНИЯ
     resetBtn.addEventListener('click', showResetConfirm);
-    
-    // Обработчики плашки подтверждения
     resetCancelBtn.addEventListener('click', hideResetConfirm);
     resetConfirmBtn.addEventListener('click', executeReset);
     resetConfirmOverlay.addEventListener('click', (e) => {
         if (e.target === resetConfirmOverlay) hideResetConfirm();
     });
 
-    // Остальные обработчики
     undoBtn.addEventListener('click', undoLast);
     soundToggle.addEventListener('click', toggleSound);
     editToggle.addEventListener('click', toggleEditMode);
