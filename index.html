@@ -42,6 +42,8 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 4px;
+            flex-wrap: wrap;
+            gap: 6px;
         }
 
         .header h1 {
@@ -62,7 +64,14 @@
             color: #94a3b8;
         }
 
-        .btn-reset {
+        .header-btns {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-header {
             background: #2a3a50;
             border: none;
             color: #cbd5e1;
@@ -72,9 +81,11 @@
             font-weight: 600;
             cursor: pointer;
             border: 1px solid #3b4d66;
+            transition: all 0.15s ease;
         }
 
-        .btn-reset:active { transform: scale(0.94); background: #3b4d66; }
+        .btn-header:active { transform: scale(0.94); background: #3b4d66; }
+        .btn-header.active { background: #4a3a1a; border-color: #8a722a; color: #f5e88a; }
 
         .balance-wrap {
             background: #0b1120;
@@ -155,6 +166,8 @@
             user-select: none;
             -webkit-tap-highlight-color: transparent;
             transition: transform 0.08s ease, box-shadow 0.08s ease;
+            position: relative;
+            flex-wrap: wrap;
         }
 
         .btn:active {
@@ -170,6 +183,32 @@
             font-size: 10px;
             font-weight: 600;
             white-space: nowrap;
+        }
+
+        .btn .badge-time, .btn .badge-daily {
+            font-size: 8px;
+            background: rgba(0,0,0,0.4);
+            padding: 0 6px;
+            border-radius: 10px;
+            color: #94a3b8;
+            white-space: nowrap;
+        }
+
+        .btn .badge-daily.locked {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.2);
+        }
+
+        .btn .badge-timer {
+            font-size: 9px;
+            background: rgba(0,0,0,0.5);
+            padding: 0 8px;
+            border-radius: 10px;
+            color: #facc15;
+            white-space: nowrap;
+            font-weight: 600;
+            min-width: 70px;
+            text-align: center;
         }
 
         .btn.full { grid-column: 1 / -1; }
@@ -193,6 +232,174 @@
         .btn.cyan:active { background: #143a4a; }
         .btn.gold { background: #4a3a1a; border-color: #8a722a; color: #f5e88a; }
         .btn.gold:active { background: #3a2e14; }
+        .btn.custom { background: #2a3a5a; border-color: #4a5a7a; color: #c8d8f5; }
+
+        .btn.edit-mode .btn-del, .btn.edit-mode .btn-edit {
+            display: flex;
+        }
+
+        .btn .btn-del, .btn .btn-edit {
+            display: none;
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            color: white;
+            border: 2px solid #0b1120;
+            font-size: 12px;
+            font-weight: 700;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .btn .btn-del {
+            top: -6px;
+            right: -6px;
+            background: #ef4444;
+        }
+
+        .btn .btn-edit {
+            bottom: -6px;
+            right: -6px;
+            background: #3b82f6;
+        }
+
+        .btn .btn-del:active, .btn .btn-edit:active { transform: scale(0.85); }
+
+        .btn.edit-mode .btn-del, .btn.edit-mode .btn-edit {
+            display: flex;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.show { display: flex; }
+
+        .modal {
+            background: #1a2636;
+            border-radius: 24px;
+            padding: 24px;
+            max-width: 420px;
+            width: 100%;
+            border: 1px solid #2a3a50;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal h2 {
+            color: #f1f5f9;
+            font-size: 18px;
+            margin-bottom: 16px;
+        }
+
+        .modal label {
+            color: #94a3b8;
+            font-size: 13px;
+            font-weight: 600;
+            display: block;
+            margin-top: 12px;
+        }
+
+        .modal input, .modal select {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid #2a3a50;
+            background: #0b1120;
+            color: #f1f5f9;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .modal input:focus { outline: 2px solid #3b82f6; border-color: transparent; }
+        .modal input[type="number"] { -moz-appearance: textfield; }
+        .modal input[type="number"]::-webkit-inner-spin-button,
+        .modal input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+        .modal .checkbox-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-top: 8px;
+            color: #94a3b8;
+            font-size: 13px;
+            flex-wrap: wrap;
+        }
+
+        .modal .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #3b82f6;
+            cursor: pointer;
+        }
+
+        .modal .checkbox-group label {
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .modal .modal-btns {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: flex-end;
+        }
+
+        .modal .modal-btns button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .modal .modal-btns .btn-cancel { background: #2a3a50; color: #94a3b8; }
+        .modal .modal-btns .btn-cancel:active { transform: scale(0.94); }
+        .modal .modal-btns .btn-save { background: #3b82f6; color: white; }
+        .modal .modal-btns .btn-save:active { transform: scale(0.94); }
+
+        .modal .hint {
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+        .modal .time-presets {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+            margin-top: 6px;
+        }
+
+        .modal .time-presets button {
+            padding: 6px;
+            border: 1px solid #2a3a50;
+            border-radius: 8px;
+            background: #0b1120;
+            color: #94a3b8;
+            font-size: 11px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .modal .time-presets button:active { transform: scale(0.94); background: #1a2636; }
+        .modal .time-presets button.active { border-color: #3b82f6; color: #f1f5f9; background: #1a2a5a; }
 
         .footer {
             margin-top: 14px;
@@ -238,6 +445,8 @@
             .balance { font-size: 36px; }
             .header h1 { font-size: 18px; }
             .btn .emoji { font-size: 14px; }
+            .modal { padding: 16px; }
+            .modal .time-presets { grid-template-columns: 1fr 1fr; }
         }
 
         @media (min-width: 600px) {
@@ -260,6 +469,183 @@
         }
         .sound-toggle:active { transform: scale(0.92); }
         .sound-toggle.on { color: #facc15; border-color: #8a722a; }
+
+        .empty-msg {
+            color: #475569;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+        }
+
+        .btn .time-input-wrapper {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #0b1120;
+            border: 2px solid #3b82f6;
+            border-radius: 12px;
+            padding: 4px 4px 4px 8px;
+            z-index: 10;
+            display: none;
+            align-items: center;
+            gap: 4px;
+            background: #0b1120;
+        }
+
+        .btn.show-time-input .time-input-wrapper {
+            display: flex;
+        }
+
+        .btn .time-input-wrapper .time-input {
+            width: 50px;
+            background: transparent;
+            border: none;
+            color: #f1f5f9;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 4px 0;
+            text-align: center;
+            outline: none;
+        }
+
+        .btn .time-input-wrapper .time-input:focus { outline: none; }
+
+        .btn .time-input-wrapper .time-confirm {
+            background: #4ade80;
+            border: none;
+            border-radius: 8px;
+            color: #0b1120;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 4px 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 28px;
+            height: 28px;
+            transition: transform 0.08s ease;
+        }
+
+        .btn .time-input-wrapper .time-confirm:active {
+            transform: scale(0.85);
+        }
+
+        .btn.show-time-input .btn-label {
+            opacity: 0.2;
+        }
+
+        .btn .bonus-percent {
+            font-size: 9px;
+            color: #94a3b8;
+            background: rgba(0,0,0,0.3);
+            padding: 0 6px;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .btn .time-input-wrapper .time-input {
+                width: 40px;
+                font-size: 12px;
+            }
+            .btn .time-input-wrapper .time-confirm {
+                font-size: 14px;
+                min-width: 24px;
+                height: 24px;
+            }
+        }
+
+        /* Стили для плашки подтверждения сброса */
+        .reset-confirm-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .reset-confirm-overlay.show {
+            display: flex;
+        }
+
+        .reset-confirm-box {
+            background: #1a2636;
+            border-radius: 24px;
+            padding: 32px 24px 24px;
+            max-width: 400px;
+            width: 100%;
+            border: 1px solid #ef4444;
+            box-shadow: 0 20px 60px rgba(239, 68, 68, 0.2);
+            text-align: center;
+        }
+
+        .reset-confirm-box .icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .reset-confirm-box h3 {
+            color: #f1f5f9;
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .reset-confirm-box p {
+            color: #94a3b8;
+            font-size: 14px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .reset-confirm-box .warning-text {
+            color: #f87171;
+            font-size: 13px;
+            font-weight: 600;
+            background: rgba(239, 68, 68, 0.1);
+            padding: 8px 12px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .reset-confirm-box .btn-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .reset-confirm-box .btn-group button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            min-width: 100px;
+        }
+
+        .reset-confirm-box .btn-cancel-reset {
+            background: #2a3a50;
+            color: #94a3b8;
+        }
+
+        .reset-confirm-box .btn-cancel-reset:active { transform: scale(0.94); }
+
+        .reset-confirm-box .btn-confirm-reset {
+            background: #ef4444;
+            color: white;
+        }
+
+        .reset-confirm-box .btn-confirm-reset:active { transform: scale(0.94); }
     </style>
 </head>
 <body>
@@ -268,9 +654,11 @@
 
     <div class="header">
         <h1>📚 Счёт <span class="age">7 лет</span></h1>
-        <div style="display:flex; gap:6px; align-items:center;">
+        <div class="header-btns">
             <button class="sound-toggle on" id="soundToggle">🔊</button>
-            <button class="btn-reset" id="resetBtn">↺ Сброс</button>
+            <button class="btn-header" id="editToggle">✏️ Правка</button>
+            <button class="btn-header" id="addBtn">➕</button>
+            <button class="btn-header" id="resetBtn">↺</button>
         </div>
     </div>
 
@@ -293,18 +681,106 @@
     </div>
 </div>
 
+<!-- Плашка подтверждения сброса -->
+<div class="reset-confirm-overlay" id="resetConfirmOverlay">
+    <div class="reset-confirm-box">
+        <span class="icon">⚠️</span>
+        <h3>Сбросить всё?</h3>
+        <p>Баланс, статистика и история будут полностью очищены.</p>
+        <div class="warning-text">Это действие нельзя будет отменить!</div>
+        <div class="btn-group">
+            <button class="btn-cancel-reset" id="resetCancelBtn">Отмена</button>
+            <button class="btn-confirm-reset" id="resetConfirmBtn">Да, сбросить</button>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+        <h2 id="modalTitle">➕ Добавить задание</h2>
+
+        <label>Название</label>
+        <input type="text" id="modalLabel" placeholder="Например: Сделал зарядку" />
+
+        <label>Эмодзи (иконка)</label>
+        <input type="text" id="modalEmoji" placeholder="Например: 💪" maxlength="2" />
+
+        <label>Сумма за выполнение (+ или -)</label>
+        <input type="number" id="modalPrice" placeholder="Например: 10 или -20" step="0.1" />
+        <div class="hint">Можно с десятыми: 5.5, 12.3</div>
+
+        <label>Группа (категория)</label>
+        <select id="modalGroup">
+            <option value="📚 Школа">📚 Школа</option>
+            <option value="🏠 Дом">🏠 Дом</option>
+            <option value="🎨 Творчество">🎨 Творчество</option>
+            <option value="💪 Привычки">💪 Привычки</option>
+            <option value="⛔ Штрафы">⛔ Штрафы</option>
+            <option value="🏆 Награды">🏆 Награды</option>
+            <option value="➕ Своё">➕ Своё</option>
+        </select>
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="modalTimeBonus" />
+            <label for="modalTimeBonus">⏱️ Бонус за время</label>
+        </div>
+
+        <div id="timeSettings" style="display:none;">
+            <label>Базовое время (минут)</label>
+            <input type="number" id="modalBaseTime" placeholder="5" value="5" min="1" />
+
+            <label>Базовый доход за это время</label>
+            <input type="number" id="modalBasePrice" placeholder="10" value="10" step="0.1" />
+
+            <label>Бонус за минуту (% от базового дохода)</label>
+            <input type="number" id="modalBonusPercent" placeholder="10" value="10" min="1" max="100" step="1" />
+            <div class="hint">За каждую дополнительную минуту +X% от базового дохода</div>
+        </div>
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="modalDaily" />
+            <label for="modalDaily">🔒 Ограничение по времени</label>
+        </div>
+
+        <div id="dailySettings" style="display:none;">
+            <label>Период блокировки</label>
+            <div class="time-presets">
+                <button data-hours="0.0167">1 мин</button>
+                <button data-hours="1">1 час</button>
+                <button data-hours="6">6 часов</button>
+                <button data-hours="12">12 часов</button>
+                <button data-hours="24" class="active">24 часа</button>
+                <button data-hours="168">7 дней</button>
+            </div>
+            <div style="margin-top: 6px;">
+                <label style="font-size: 12px; color: #64748b;">Или своё значение (часы)</label>
+                <input type="number" id="modalDailyHours" placeholder="24" value="24" min="0.0167" step="0.1" />
+            </div>
+        </div>
+
+        <div class="modal-btns">
+            <button class="btn-cancel" id="modalCancel">Отмена</button>
+            <button class="btn-save" id="modalSave">Сохранить</button>
+        </div>
+    </div>
+</div>
+
 <script>
 (function() {
     'use strict';
 
-    const ACTIONS = [
+    // =============================================================
+    //  БАЗОВЫЕ ДЕЙСТВИЯ
+    // =============================================================
+    const DEFAULT_ACTIONS = [
         { group: '📚 Школа', label: 'Задание без капризов', emoji: '📝', price: 10, cls: 'green' },
         { group: '📚 Школа', label: 'Выучил стихотворение', emoji: '📜', price: 12, cls: 'yellow' },
         { group: '📚 Школа', label: 'Прочитал главу книги', emoji: '📖', price: 10, cls: 'blue' },
         { group: '🏠 Дом', label: 'Заправил кровать', emoji: '🛏️', price: 7, cls: 'purple' },
         { group: '🏠 Дом', label: 'Аккуратно сложил одежду', emoji: '👕', price: 5, cls: 'orange' },
-        { group: '🎨 Творчество', label: 'Творчество', emoji: '🖍️', price: 5, cls: 'pink' },
-        { group: '💪 Привычки', label: 'Выпил тёплой воды утром', emoji: '💧', price: 3, cls: 'cyan' },
+        { group: '🎨 Творчество', label: 'Творчество (за 5 мин)', emoji: '🖍️', price: 5, cls: 'pink', timeBonus: true, baseTime: 5, basePrice: 5, bonusPercent: 10 },
+        { group: '💪 Привычки', label: 'Выпил тёплой воды утром', emoji: '💧', price: 3, cls: 'cyan', daily: true, dailyHours: 24 },
         { group: '💪 Привычки', label: 'Сказал, что чувствуешь', emoji: '💬', price: 30, cls: 'yellow' },
         { group: '⛔ Штрафы', label: 'Истерика / капризы', emoji: '😭', price: -40, cls: 'red' },
         { group: '⛔ Штрафы', label: 'Злился и кидал вещи', emoji: '💢', price: -10, cls: 'red' },
@@ -313,14 +789,29 @@
         { group: '🏆 Награды', label: 'Прочитал книгу до конца', emoji: '📚', price: 15, cls: 'gold' },
     ];
 
+    // =============================================================
+    //  СОСТОЯНИЕ
+    // =============================================================
+    let actions = [];
+    let balance = 0;
+    let counts = {};
+    let history = [];
+    let dailyTracker = {};
+    let editMode = false;
+    let editingIndex = -1;
+    let timerInterval = null;
+    const STORAGE_KEY = 'schoolCounter_custom_v4';
+
+    // =============================================================
+    //  ЗВУКИ
+    // =============================================================
     let soundEnabled = true;
     let audioCtx = null;
+    let soundQueue = [];
 
     function initAudio() {
         if (!audioCtx) {
-            try {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            } catch (_) {}
+            try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (_) {}
         }
         return audioCtx;
     }
@@ -328,17 +819,32 @@
     function playTone(freq, duration, type, volume) {
         try {
             const ctx = initAudio();
-            if (!ctx || !soundEnabled) return;
+            if (!ctx || !soundEnabled || ctx.state === 'suspended') return;
+            
+            if (soundQueue.length > 10) {
+                soundQueue.forEach(osc => {
+                    try { osc.stop(); } catch (_) {}
+                });
+                soundQueue = [];
+            }
+
             const osc = ctx.createOscillator();
             const gain = ctx.createGain();
             osc.type = type || 'sine';
             osc.frequency.setValueAtTime(freq, ctx.currentTime);
-            gain.gain.setValueAtTime((volume || 0.15), ctx.currentTime);
+            gain.gain.setValueAtTime(Math.min(volume || 0.15, 0.3), ctx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
             osc.connect(gain);
             gain.connect(ctx.destination);
+            
+            soundQueue.push(osc);
             osc.start();
             osc.stop(ctx.currentTime + duration);
+            
+            setTimeout(() => {
+                const idx = soundQueue.indexOf(osc);
+                if (idx > -1) soundQueue.splice(idx, 1);
+            }, duration * 1000 + 100);
         } catch (_) {}
     }
 
@@ -364,11 +870,9 @@
         setTimeout(() => playTone(300, 0.1, 'sine', 0.06), 120);
     }
 
-    let balance = 0;
-    let counts = {};
-    let history = [];
-    const STORAGE_KEY = 'schoolCounter_v2';
-
+    // =============================================================
+    //  DOM
+    // =============================================================
     const balanceEl = document.getElementById('balanceDisplay');
     const goodEl = document.getElementById('goodCount');
     const badEl = document.getElementById('badCount');
@@ -376,56 +880,278 @@
     const undoBtn = document.getElementById('undoBtn');
     const resetBtn = document.getElementById('resetBtn');
     const soundToggle = document.getElementById('soundToggle');
+    const editToggle = document.getElementById('editToggle');
+    const addBtn = document.getElementById('addBtn');
 
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalLabel = document.getElementById('modalLabel');
+    const modalEmoji = document.getElementById('modalEmoji');
+    const modalPrice = document.getElementById('modalPrice');
+    const modalGroup = document.getElementById('modalGroup');
+    const modalTimeBonus = document.getElementById('modalTimeBonus');
+    const modalBaseTime = document.getElementById('modalBaseTime');
+    const modalBasePrice = document.getElementById('modalBasePrice');
+    const modalBonusPercent = document.getElementById('modalBonusPercent');
+    const modalDaily = document.getElementById('modalDaily');
+    const modalDailyHours = document.getElementById('modalDailyHours');
+    const timeSettings = document.getElementById('timeSettings');
+    const dailySettings = document.getElementById('dailySettings');
+    const modalSave = document.getElementById('modalSave');
+    const modalCancel = document.getElementById('modalCancel');
+    const timePresets = document.querySelectorAll('.time-presets button');
+
+    // Плашка подтверждения сброса
+    const resetConfirmOverlay = document.getElementById('resetConfirmOverlay');
+    const resetCancelBtn = document.getElementById('resetCancelBtn');
+    const resetConfirmBtn = document.getElementById('resetConfirmBtn');
+
+    // =============================================================
+    //  ЗАГРУЗКА / СОХРАНЕНИЕ
+    // =============================================================
     function loadState() {
         try {
             const raw = localStorage.getItem(STORAGE_KEY);
             if (raw) {
                 const data = JSON.parse(raw);
+                actions = data.actions || [...DEFAULT_ACTIONS];
                 balance = data.balance ?? 0;
                 counts = data.counts ?? {};
-                history = data.history ?? [];
+                history = Array.isArray(data.history) ? data.history : [];
+                dailyTracker = data.dailyTracker || {};
+                
+                actions.forEach(a => {
+                    if (a.timeBonus && a.bonusPercent === undefined) {
+                        a.bonusPercent = 10;
+                    }
+                    if (a.daily && a.dailyHours === undefined) {
+                        a.dailyHours = 24;
+                    }
+                });
                 return true;
             }
         } catch (_) {}
+        actions = [...DEFAULT_ACTIONS];
         return false;
     }
 
     function saveState() {
         try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify({ balance, counts, history }));
+            localStorage.setItem(STORAGE_KEY, JSON.stringify({
+                actions, balance, counts, history, dailyTracker
+            }));
         } catch (_) {}
     }
 
+    // =============================================================
+    //  РАСЧЁТ БОНУСА ЗА ВРЕМЯ
+    // =============================================================
+    function calculateTimeBonus(action, actualMinutes) {
+        if (!action.timeBonus) return action.price;
+        const baseTime = action.baseTime || 5;
+        const basePrice = action.basePrice || action.price || 10;
+        const bonusPercent = action.bonusPercent || 10;
+        
+        if (actualMinutes <= baseTime) return basePrice;
+        const extraMinutes = actualMinutes - baseTime;
+        const bonusPerMinute = basePrice * (bonusPercent / 100);
+        const total = basePrice + (extraMinutes * bonusPerMinute);
+        return Math.round(total * 10) / 10;
+    }
+
+    // =============================================================
+    //  ПРОВЕРКА ДНЕВНОГО ЛИМИТА
+    // =============================================================
+    function isDailyAvailable(index) {
+        if (!actions[index] || !actions[index].daily) return true;
+        const last = dailyTracker[index];
+        if (!last) return true;
+        const now = Date.now();
+        const diff = now - last;
+        const hours = actions[index].dailyHours || 24;
+        const ms = hours * 3600000;
+        return diff >= ms;
+    }
+
+    function getDailyCooldown(index) {
+        if (!actions[index] || !actions[index].daily) return 0;
+        const last = dailyTracker[index];
+        if (!last) return 0;
+        const now = Date.now();
+        const diff = now - last;
+        const hours = actions[index].dailyHours || 24;
+        const ms = hours * 3600000;
+        if (diff >= ms) return 0;
+        return Math.ceil((ms - diff) / 1000);
+    }
+
+    function formatCooldown(seconds) {
+        if (seconds <= 0) return '✅ Готово';
+        const h = Math.floor(seconds / 3600);
+        const m = Math.floor((seconds % 3600) / 60);
+        const s = Math.floor(seconds % 60);
+        if (h > 0) {
+            return `${h}ч ${m}м ${s}с`;
+        } else if (m > 0) {
+            return `${m}м ${s}с`;
+        } else {
+            return `${s}с`;
+        }
+    }
+
+    // =============================================================
+    //  ОБНОВЛЕНИЕ UI
+    // =============================================================
     function updateUI() {
         const prefix = balance < 0 ? '-' : '';
         balanceEl.textContent = `${prefix}${Math.abs(balance)} ₽`;
         balanceEl.className = 'balance' + (balance < 0 ? ' negative' : '');
 
         let good = 0, bad = 0;
-        ACTIONS.forEach((a, i) => {
+        actions.forEach((a, i) => {
             const c = counts[i] || 0;
-            if (a.price > 0) good += c;
+            if (a.price > 0 || (a.timeBonus && a.basePrice > 0)) good += c;
             else bad += c;
         });
         goodEl.textContent = good;
         badEl.textContent = bad;
 
         undoBtn.disabled = history.length === 0;
+        editToggle.textContent = editMode ? '✏️ Выйти' : '✏️ Правка';
+        editToggle.className = 'btn-header' + (editMode ? ' active' : '');
         saveState();
+        renderActions();
     }
 
-    function handleAction(index) {
-        const action = ACTIONS[index];
-        if (!action) return;
+    // =============================================================
+    //  ТАЙМЕР ДЛЯ КНОПОК
+    // =============================================================
+    function startTimer() {
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            document.querySelectorAll('.btn .badge-timer').forEach(el => {
+                const btn = el.closest('.btn');
+                if (!btn) return;
+                const index = parseInt(btn.dataset.index, 10);
+                if (isNaN(index)) return;
+                const cooldown = getDailyCooldown(index);
+                if (cooldown > 0) {
+                    el.textContent = '⏳ ' + formatCooldown(cooldown);
+                    el.style.display = 'inline';
+                } else {
+                    el.textContent = '✅ Готово';
+                    el.style.display = 'inline';
+                    const badge = btn.querySelector('.badge-daily');
+                    if (badge) {
+                        badge.classList.remove('locked');
+                        badge.textContent = '🔓 ' + (actions[index]?.dailyHours || 24) + 'ч';
+                    }
+                }
+            });
+        }, 1000);
+    }
 
-        if (action.price > 0) playCoin();
-        else playBad();
+    // =============================================================
+    //  ДЕЙСТВИЕ С ВВОДОМ ВРЕМЕНИ (с кнопкой подтверждения)
+    // =============================================================
+    function showTimeInput(index) {
+        document.querySelectorAll('.btn.show-time-input').forEach(b => {
+            if (parseInt(b.dataset.index, 10) !== index) {
+                b.classList.remove('show-time-input');
+            }
+        });
+        
+        const btns = document.querySelectorAll('.btn');
+        if (btns[index]) {
+            btns[index].classList.add('show-time-input');
+            const input = btns[index].querySelector('.time-input');
+            if (input) {
+                input.value = actions[index].baseTime || 5;
+                setTimeout(() => {
+                    input.focus();
+                    input.select();
+                }, 100);
+            }
+        }
+    }
+
+    function confirmTimeInput(index) {
+        const action = actions[index];
+        if (!action) return;
+        
+        const btns = document.querySelectorAll('.btn');
+        const btn = btns[index];
+        if (!btn) return;
+        
+        const input = btn.querySelector('.time-input');
+        if (!input) return;
+        
+        const value = input.value;
+        const minutes = parseFloat(value);
+        if (isNaN(minutes) || minutes < 0) {
+            alert('Пожалуйста, введите корректное время в минутах');
+            return;
+        }
+
+        const price = calculateTimeBonus(action, minutes);
+
+        if (action.daily && !isDailyAvailable(index)) {
+            const cooldown = getDailyCooldown(index);
+            alert(`⏳ Это задание можно выполнять 1 раз в ${action.dailyHours || 24} часов.\nОсталось ждать: ${formatCooldown(cooldown)}.`);
+            return;
+        }
+
+        if (action.daily) dailyTracker[index] = Date.now();
+
+        if (soundEnabled) {
+            if (price > 0) playCoin();
+            else playBad();
+        }
 
         if (!counts[index]) counts[index] = 0;
         counts[index] += 1;
-        history.push({ index, price: action.price });
-        balance += action.price;
+        history.push({ index, price: price, actualMinutes: minutes });
+        balance += price;
+        
+        btn.classList.remove('show-time-input');
+        updateUI();
+
+        btn.classList.remove('pop');
+        void btn.offsetWidth;
+        btn.classList.add('pop');
+    }
+
+    // =============================================================
+    //  ДЕЙСТВИЕ БЕЗ ВРЕМЕНИ
+    // =============================================================
+    function handleAction(index) {
+        const action = actions[index];
+        if (!action) return;
+
+        if (action.timeBonus) {
+            showTimeInput(index);
+            return;
+        }
+
+        if (action.daily && !isDailyAvailable(index)) {
+            const cooldown = getDailyCooldown(index);
+            alert(`⏳ Это задание можно выполнять 1 раз в ${action.dailyHours || 24} часов.\nОсталось ждать: ${formatCooldown(cooldown)}.`);
+            return;
+        }
+
+        const price = action.price || 0;
+
+        if (action.daily) dailyTracker[index] = Date.now();
+
+        if (soundEnabled) {
+            if (price > 0) playCoin();
+            else playBad();
+        }
+
+        if (!counts[index]) counts[index] = 0;
+        counts[index] += 1;
+        history.push({ index, price: price });
+        balance += price;
         updateUI();
 
         const btns = document.querySelectorAll('.btn');
@@ -436,42 +1162,96 @@
         }
     }
 
+    // =============================================================
+    //  ОТМЕНА
+    // =============================================================
     function undoLast() {
         if (history.length === 0) return;
-        playUndo();
+        if (soundEnabled) playUndo();
         const last = history.pop();
         balance -= last.price;
+
         if (counts[last.index] && counts[last.index] > 0) {
             counts[last.index] -= 1;
             if (counts[last.index] === 0) delete counts[last.index];
         }
+
+        const action = actions[last.index];
+        if (action && action.daily) {
+            const lastSameIndex = history.find(h => h.index === last.index);
+            if (!lastSameIndex) {
+                delete dailyTracker[last.index];
+            }
+        }
+
         updateUI();
         undoBtn.classList.remove('pop');
         void undoBtn.offsetWidth;
         undoBtn.classList.add('pop');
     }
 
-    function resetAll() {
-        if (confirm('Сбросить баланс и статистику?')) {
-            playReset();
-            balance = 0;
-            counts = {};
-            history = [];
-            updateUI();
-            document.querySelectorAll('.btn').forEach(b => b.classList.remove('pop'));
-        }
+    // =============================================================
+    //  СБРОС (с красивой плашкой подтверждения)
+    // =============================================================
+    function showResetConfirm() {
+        resetConfirmOverlay.classList.add('show');
+        if (soundEnabled) playReset();
     }
 
-    function toggleSound() {
-        soundEnabled = !soundEnabled;
-        soundToggle.textContent = soundEnabled ? '🔊' : '🔇';
-        soundToggle.className = 'sound-toggle' + (soundEnabled ? ' on' : '');
-        if (soundEnabled) initAudio();
+    function hideResetConfirm() {
+        resetConfirmOverlay.classList.remove('show');
     }
 
+    function executeReset() {
+        if (soundEnabled) playReset();
+        
+        // Сбрасываем все данные
+        balance = 0;
+        counts = {};
+        history = [];
+        dailyTracker = {};
+        
+        // Закрываем плашку
+        hideResetConfirm();
+        
+        // Обновляем UI
+        updateUI();
+        
+        // Убираем анимации
+        document.querySelectorAll('.btn').forEach(b => {
+            b.classList.remove('pop', 'show-time-input');
+        });
+        
+        // Закрываем все модальные окна ввода времени
+        document.querySelectorAll('.btn.show-time-input').forEach(b => {
+            b.classList.remove('show-time-input');
+        });
+        
+        // Сохраняем состояние
+        saveState();
+        
+        // Анимация для баланса
+        balanceEl.classList.remove('pop');
+        void balanceEl.offsetWidth;
+        balanceEl.classList.add('pop');
+        
+        // Звук сброса
+        setTimeout(() => {
+            if (soundEnabled) playReset();
+        }, 100);
+    }
+
+    // =============================================================
+    //  РЕНДЕР КНОПОК
+    // =============================================================
     function renderActions() {
+        if (actions.length === 0) {
+            container.innerHTML = `<div class="empty-msg">Нет заданий. Нажмите ➕ чтобы добавить</div>`;
+            return;
+        }
+
         const groups = {};
-        ACTIONS.forEach((a, i) => {
+        actions.forEach((a, i) => {
             if (!groups[a.group]) groups[a.group] = [];
             groups[a.group].push({ ...a, index: i });
         });
@@ -484,11 +1264,42 @@
             items.forEach(item => {
                 const priceStr = item.price >= 0 ? `+${item.price}` : `${item.price}`;
                 const extra = item.price < 0 ? ' full' : '';
+                const editClass = editMode ? ' edit-mode' : '';
+
+                let badges = '';
+                if (item.timeBonus) {
+                    const percent = item.bonusPercent || 10;
+                    badges += ` <span class="badge-time">⏱️ ${item.baseTime || 5}мин +${percent}%/мин</span>`;
+                }
+                
+                let timerHtml = '';
+                if (item.daily) {
+                    const avail = isDailyAvailable(item.index);
+                    const locked = !avail;
+                    const cooldown = getDailyCooldown(item.index);
+                    const hours = item.dailyHours || 24;
+                    badges += ` <span class="badge-daily${locked ? ' locked' : ''}">${locked ? '🔒' : '🔓'} ${hours}ч</span>`;
+                    
+                    if (locked) {
+                        timerHtml = ` <span class="badge-timer">⏳ ${formatCooldown(cooldown)}</span>`;
+                    } else {
+                        timerHtml = ` <span class="badge-timer">✅ Готово</span>`;
+                    }
+                }
+
                 html += `
-                    <button class="btn ${item.cls}${extra}" data-index="${item.index}">
-                        <span class="emoji">${item.emoji}</span>
-                        ${item.label}
+                    <button class="btn ${item.cls}${extra}${editClass}" data-index="${item.index}">
+                        <span class="emoji">${item.emoji || '📌'}</span>
+                        <span class="btn-label">${item.label}</span>
+                        ${badges}
+                        ${timerHtml}
                         <span class="price">${priceStr} ₽</span>
+                        <span class="time-input-wrapper">
+                            <input type="number" class="time-input" step="0.5" min="0" placeholder="мин" />
+                            <button class="time-confirm" data-index="${item.index}">✓</button>
+                        </span>
+                        <span class="btn-del" data-index="${item.index}">✕</span>
+                        <span class="btn-edit" data-index="${item.index}">✎</span>
                     </button>
                 `;
             });
@@ -499,18 +1310,291 @@
 
         container.querySelectorAll('.btn').forEach(btn => {
             const idx = parseInt(btn.dataset.index, 10);
-            btn.addEventListener('click', () => handleAction(idx));
-            btn.addEventListener('touchstart', () => {}, { passive: true });
+            
+            btn.addEventListener('click', (e) => {
+                if (e.target.classList.contains('time-input')) return;
+                if (e.target.classList.contains('time-confirm')) return;
+                if (e.target.classList.contains('btn-del')) return;
+                if (e.target.classList.contains('btn-edit')) return;
+                if (e.target.closest('.time-input-wrapper')) return;
+                
+                if (!editMode) {
+                    handleAction(idx);
+                }
+            });
+
+            const confirmBtn = btn.querySelector('.time-confirm');
+            if (confirmBtn) {
+                confirmBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    confirmTimeInput(idx);
+                });
+            }
+
+            const input = btn.querySelector('.time-input');
+            if (input) {
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        confirmTimeInput(idx);
+                    }
+                    if (e.key === 'Escape') {
+                        btn.classList.remove('show-time-input');
+                    }
+                });
+                input.addEventListener('click', (e) => e.stopPropagation());
+            }
+        });
+
+        container.querySelectorAll('.btn-del').forEach(el => {
+            el.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const idx = parseInt(el.dataset.index, 10);
+                deleteAction(idx);
+            });
+        });
+
+        container.querySelectorAll('.btn-edit').forEach(el => {
+            el.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const idx = parseInt(el.dataset.index, 10);
+                openEditModal(idx);
+            });
+        });
+
+        document.addEventListener('click', function closeTimeInputs(e) {
+            if (!e.target.closest('.btn.show-time-input')) {
+                document.querySelectorAll('.btn.show-time-input').forEach(b => {
+                    b.classList.remove('show-time-input');
+                });
+            }
         });
     }
 
+    // =============================================================
+    //  УДАЛЕНИЕ
+    // =============================================================
+    function deleteAction(index) {
+        if (!confirm(`Удалить задание "${actions[index].label}"?`)) return;
+        actions.splice(index, 1);
+
+        const newCounts = {};
+        const newHistory = [];
+        const newDaily = {};
+
+        for (const [key, val] of Object.entries(counts)) {
+            const k = parseInt(key, 10);
+            if (k < index) newCounts[k] = val;
+            else if (k > index) newCounts[k - 1] = val;
+        }
+
+        for (const h of history) {
+            if (h.index < index) newHistory.push(h);
+            else if (h.index > index) newHistory.push({ ...h, index: h.index - 1 });
+        }
+
+        for (const [key, val] of Object.entries(dailyTracker)) {
+            const k = parseInt(key, 10);
+            if (k < index) newDaily[k] = val;
+            else if (k > index) newDaily[k - 1] = val;
+        }
+
+        counts = newCounts;
+        history = newHistory;
+        dailyTracker = newDaily;
+
+        updateUI();
+    }
+
+    // =============================================================
+    //  МОДАЛЬНОЕ ОКНО
+    // =============================================================
+    function openAddModal() {
+        editingIndex = -1;
+        modalTitle.textContent = '➕ Добавить задание';
+        modalLabel.value = '';
+        modalEmoji.value = '📌';
+        modalPrice.value = '';
+        modalGroup.value = '➕ Своё';
+        modalTimeBonus.checked = false;
+        modalDaily.checked = false;
+        timeSettings.style.display = 'none';
+        dailySettings.style.display = 'none';
+        modalBaseTime.value = 5;
+        modalBasePrice.value = 10;
+        modalBonusPercent.value = 10;
+        modalDailyHours.value = 24;
+        
+        timePresets.forEach(btn => btn.classList.remove('active'));
+        document.querySelector('.time-presets button[data-hours="24"]')?.classList.add('active');
+        
+        modalOverlay.classList.add('show');
+    }
+
+    function openEditModal(index) {
+        editingIndex = index;
+        const action = actions[index];
+        modalTitle.textContent = '✏️ Редактировать задание';
+        modalLabel.value = action.label;
+        modalEmoji.value = action.emoji || '📌';
+        modalPrice.value = action.price || 0;
+        modalGroup.value = action.group || '➕ Своё';
+        modalTimeBonus.checked = action.timeBonus || false;
+        modalDaily.checked = action.daily || false;
+        timeSettings.style.display = action.timeBonus ? 'block' : 'none';
+        dailySettings.style.display = action.daily ? 'block' : 'none';
+        modalBaseTime.value = action.baseTime || 5;
+        modalBasePrice.value = action.basePrice || action.price || 10;
+        modalBonusPercent.value = action.bonusPercent || 10;
+        modalDailyHours.value = action.dailyHours || 24;
+        
+        timePresets.forEach(btn => {
+            btn.classList.remove('active');
+            const hours = parseFloat(btn.dataset.hours);
+            if (Math.abs(hours - (action.dailyHours || 24)) < 0.001) {
+                btn.classList.add('active');
+            }
+        });
+        
+        modalOverlay.classList.add('show');
+    }
+
+    function closeModal() {
+        modalOverlay.classList.remove('show');
+        editingIndex = -1;
+    }
+
+    function saveModal() {
+        const label = modalLabel.value.trim();
+        const emoji = modalEmoji.value.trim() || '📌';
+        const price = parseFloat(modalPrice.value) || 0;
+        const group = modalGroup.value || '➕ Своё';
+        const timeBonus = modalTimeBonus.checked;
+        const daily = modalDaily.checked;
+        const baseTime = parseInt(modalBaseTime.value) || 5;
+        const basePrice = parseFloat(modalBasePrice.value) || price;
+        const bonusPercent = parseFloat(modalBonusPercent.value) || 10;
+        const dailyHours = parseFloat(modalDailyHours.value) || 24;
+
+        if (!label) { alert('Введите название!'); return; }
+        if (dailyHours < 0.0167) { alert('Минимальный период блокировки — 1 минута (0.0167 часов)'); return; }
+
+        if (editingIndex >= 0 && editingIndex < actions.length) {
+            actions[editingIndex].label = label;
+            actions[editingIndex].emoji = emoji;
+            actions[editingIndex].price = price;
+            actions[editingIndex].group = group;
+            actions[editingIndex].timeBonus = timeBonus;
+            actions[editingIndex].daily = daily;
+            actions[editingIndex].baseTime = baseTime;
+            actions[editingIndex].basePrice = basePrice;
+            actions[editingIndex].bonusPercent = bonusPercent;
+            actions[editingIndex].dailyHours = dailyHours;
+            
+            if (timeBonus) {
+                actions[editingIndex].cls = price > 0 ? 'green' : 'red';
+            } else {
+                actions[editingIndex].cls = price > 0 ? 'green' : 'red';
+                if (price > 20) actions[editingIndex].cls = 'gold';
+            }
+        } else {
+            const cls = price > 0 ? 'green' : 'red';
+            actions.push({
+                group, label, emoji, price, cls,
+                timeBonus: timeBonus || false,
+                daily: daily || false,
+                baseTime: baseTime || 5,
+                basePrice: basePrice || price,
+                bonusPercent: bonusPercent || 10,
+                dailyHours: dailyHours || 24,
+            });
+        }
+
+        closeModal();
+        updateUI();
+    }
+
+    function toggleTimeSettings() {
+        timeSettings.style.display = modalTimeBonus.checked ? 'block' : 'none';
+    }
+
+    function toggleDailySettings() {
+        dailySettings.style.display = modalDaily.checked ? 'block' : 'none';
+        if (modalDaily.checked && !document.querySelector('.time-presets .active')) {
+            document.querySelector('.time-presets button[data-hours="24"]')?.classList.add('active');
+            modalDailyHours.value = 24;
+        }
+    }
+
+    function setDailyPreset(hours) {
+        timePresets.forEach(btn => btn.classList.remove('active'));
+        document.querySelector(`.time-presets button[data-hours="${hours}"]`)?.classList.add('active');
+        modalDailyHours.value = hours;
+    }
+
+    // =============================================================
+    //  ЗВУК ВКЛ/ВЫКЛ
+    // =============================================================
+    function toggleSound() {
+        soundEnabled = !soundEnabled;
+        soundToggle.textContent = soundEnabled ? '🔊' : '🔇';
+        soundToggle.className = 'sound-toggle' + (soundEnabled ? ' on' : '');
+        if (soundEnabled) initAudio();
+    }
+
+    function toggleEditMode() {
+        editMode = !editMode;
+        document.querySelectorAll('.btn.show-time-input').forEach(b => b.classList.remove('show-time-input'));
+        updateUI();
+    }
+
+    // =============================================================
+    //  ИНИЦИАЛИЗАЦИЯ
+    // =============================================================
     loadState();
     renderActions();
     updateUI();
+    startTimer();
 
-    resetBtn.addEventListener('click', resetAll);
+    // Обработчики пресетов
+    timePresets.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const hours = parseFloat(btn.dataset.hours);
+            setDailyPreset(hours);
+        });
+    });
+
+    modalDailyHours.addEventListener('input', () => {
+        const val = parseFloat(modalDailyHours.value);
+        if (!isNaN(val)) {
+            timePresets.forEach(btn => {
+                const hours = parseFloat(btn.dataset.hours);
+                btn.classList.toggle('active', Math.abs(hours - val) < 0.001);
+            });
+        }
+    });
+
+    // ✅ ПРАВИЛЬНАЯ ПРИВЯЗКА КНОПКИ ОБНУЛЕНИЯ
+    resetBtn.addEventListener('click', showResetConfirm);
+    
+    // Обработчики плашки подтверждения
+    resetCancelBtn.addEventListener('click', hideResetConfirm);
+    resetConfirmBtn.addEventListener('click', executeReset);
+    resetConfirmOverlay.addEventListener('click', (e) => {
+        if (e.target === resetConfirmOverlay) hideResetConfirm();
+    });
+
+    // Остальные обработчики
     undoBtn.addEventListener('click', undoLast);
     soundToggle.addEventListener('click', toggleSound);
+    editToggle.addEventListener('click', toggleEditMode);
+    addBtn.addEventListener('click', openAddModal);
+    modalTimeBonus.addEventListener('change', toggleTimeSettings);
+    modalDaily.addEventListener('change', toggleDailySettings);
+
+    modalCancel.addEventListener('click', closeModal);
+    modalSave.addEventListener('click', saveModal);
+    modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
 
     document.addEventListener('touchstart', () => initAudio(), { once: true });
     document.addEventListener('click', () => initAudio(), { once: true });
