@@ -24,7 +24,58 @@
             align-items: flex-start;
             padding: 12px;
             background-attachment: fixed;
+            transition: background 0.3s;
         }
+
+        body.light-theme {
+            background: linear-gradient(145deg, #e2e8f0, #f1f5f9);
+        }
+
+        body.light-theme .app {
+            background: linear-gradient(160deg, #ffffff, #f8fafc);
+            border-color: #cbd5e1;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+
+        body.light-theme .header h1 { color: #0f172a; }
+        body.light-theme .balance-wrap { background: #f1f5f9; border-color: #cbd5e1; }
+        body.light-theme .balance-label { color: #64748b; }
+        body.light-theme .group-title { color: #475569; }
+        body.light-theme .group-title .badge { background: #e2e8f0; color: #64748b; }
+        body.light-theme .btn { border-color: #cbd5e1; box-shadow: 0 3px 0 #94a3b8; }
+        body.light-theme .btn-header { background: #e2e8f0; color: #475569; border-color: #cbd5e1; }
+        body.light-theme .btn-header.active { background: #fef3c7; border-color: #f59e0b; color: #92400e; }
+        body.light-theme .stats-menu-btn,
+        body.light-theme .settings-menu-btn { background: #e2e8f0; color: #475569; border-color: #cbd5e1; }
+        body.light-theme .stats-panel,
+        body.light-theme .settings-panel { background: #f8fafc; border-color: #cbd5e1; }
+        body.light-theme .stats-total { background: #f1f5f9; border-color: #cbd5e1; }
+        body.light-theme .stat-item { background: #f1f5f9; border-color: #cbd5e1; }
+        body.light-theme .history-item { background: #f1f5f9; border-color: #cbd5e1; }
+        body.light-theme .history-item .left .text { color: #1e293b; }
+        body.light-theme .stat-item .info .label { color: #64748b; }
+        body.light-theme .footer { border-top-color: #e2e8f0; color: #64748b; }
+        body.light-theme .btn-undo { background: #e2e8f0; color: #475569; }
+        body.light-theme .settings-item { border-bottom-color: #e2e8f0; }
+        body.light-theme .settings-toggle { background: #cbd5e1; }
+        body.light-theme .modal { background: #ffffff; border-color: #cbd5e1; }
+        body.light-theme .modal h2 { color: #0f172a; }
+        body.light-theme .modal label { color: #475569; }
+        body.light-theme .modal input,
+        body.light-theme .modal select { background: #f1f5f9; border-color: #cbd5e1; color: #0f172a; }
+        body.light-theme .reset-confirm-box { background: #ffffff; }
+        body.light-theme .chart-section-title { border-bottom-color: #e2e8f0; }
+        body.light-theme .chart-container { border-bottom-color: #e2e8f0; }
+        body.light-theme .stats-section-title { border-bottom-color: #e2e8f0; }
+        body.light-theme .settings-section-title { border-bottom-color: #e2e8f0; }
+        body.light-theme .chart-period-btn { background: #f1f5f9; border-color: #cbd5e1; }
+        body.light-theme .chart-period-btn.active { background: #dbeafe; border-color: #3b82f6; color: #1e40af; }
+        body.light-theme .settings-item .theme-btn { background: #f1f5f9; border-color: #cbd5e1; color: #475569; }
+        body.light-theme .settings-item .theme-btn.active { background: #dbeafe; border-color: #3b82f6; color: #1e40af; }
+        body.light-theme .stats-panel::-webkit-scrollbar-track,
+        body.light-theme .settings-panel::-webkit-scrollbar-track { background: #f8fafc; }
+        body.light-theme .stats-panel::-webkit-scrollbar-thumb,
+        body.light-theme .settings-panel::-webkit-scrollbar-thumb { background: #cbd5e1; }
 
         .app {
             max-width: 480px;
@@ -35,6 +86,7 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.9);
             border: 1px solid #2a3a50;
             margin: 0 auto;
+            transition: background 0.3s, border-color 0.3s;
         }
 
         .header {
@@ -53,15 +105,6 @@
             display: flex;
             align-items: center;
             gap: 6px;
-        }
-
-        .header h1 .age {
-            background: #2a3a50;
-            font-size: 11px;
-            font-weight: 500;
-            padding: 0 10px;
-            border-radius: 30px;
-            color: #94a3b8;
         }
 
         .header-btns {
@@ -401,6 +444,495 @@
         .modal .time-presets button:active { transform: scale(0.94); background: #1a2636; }
         .modal .time-presets button.active { border-color: #3b82f6; color: #f1f5f9; background: #1a2a5a; }
 
+        .stats-menu-btn, .settings-menu-btn {
+            background: #2a3a50;
+            border: none;
+            color: #cbd5e1;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid #3b4d66;
+            transition: all 0.15s ease;
+        }
+
+        .stats-menu-btn:active, .settings-menu-btn:active { transform: scale(0.94); background: #3b4d66; }
+        .stats-menu-btn.active, .settings-menu-btn.active { background: #1a3a5a; border-color: #3b82f6; color: #93c5fd; }
+
+        .stats-panel, .settings-panel {
+            display: none;
+            background: #0b1120;
+            border-radius: 20px;
+            padding: 16px;
+            margin: 10px 0 18px;
+            border: 1px solid #2a3a50;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .stats-panel.show, .settings-panel.show {
+            display: block;
+        }
+
+        .stats-panel::-webkit-scrollbar,
+        .settings-panel::-webkit-scrollbar { width: 4px; }
+        .stats-panel::-webkit-scrollbar-track,
+        .settings-panel::-webkit-scrollbar-track { background: #0b1120; }
+        .stats-panel::-webkit-scrollbar-thumb,
+        .settings-panel::-webkit-scrollbar-thumb { background: #2a3a50; border-radius: 10px; }
+
+        .chart-section {
+            margin-bottom: 16px;
+        }
+
+        .chart-section-title {
+            color: #64748b;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #1e2a3a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chart-section-title .today-total {
+            color: #facc15;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .chart-period-btns {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 10px;
+        }
+
+        .chart-period-btn {
+            flex: 1;
+            padding: 6px 4px;
+            border: 1px solid #2a3a50;
+            border-radius: 8px;
+            background: #0b1120;
+            color: #94a3b8;
+            font-size: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.15s ease;
+        }
+
+        .chart-period-btn.active {
+            border-color: #3b82f6;
+            color: #f1f5f9;
+            background: #1a2a5a;
+        }
+
+        .chart-period-btn:active {
+            transform: scale(0.94);
+        }
+
+        .chart-container {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            height: 120px;
+            padding: 10px 0 0;
+            gap: 4px;
+            border-bottom: 2px solid #1e2a3a;
+        }
+
+        .chart-bar-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            justify-content: flex-end;
+        }
+
+        .chart-bar {
+            width: 100%;
+            max-width: 28px;
+            min-height: 4px;
+            border-radius: 4px 4px 0 0;
+            background: linear-gradient(180deg, #4ade80, #22c55e);
+            transition: height 0.5s ease;
+            position: relative;
+        }
+
+        .chart-bar.negative {
+            background: linear-gradient(180deg, #f87171, #ef4444);
+        }
+
+        .chart-bar-label {
+            color: #64748b;
+            font-size: 8px;
+            margin-top: 4px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .chart-bar-value {
+            color: #94a3b8;
+            font-size: 8px;
+            margin-bottom: 2px;
+            font-weight: 600;
+        }
+
+        .stats-section {
+            margin-top: 12px;
+        }
+
+        .stats-section-title {
+            color: #64748b;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #1e2a3a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stats-section-title .count {
+            background: #1e2a3a;
+            padding: 0 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            color: #94a3b8;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .stat-item {
+            background: #1a2636;
+            border-radius: 12px;
+            padding: 8px 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid #1e2a3a;
+        }
+
+        .stat-item .emoji {
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .stat-item .info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .stat-item .info .label {
+            color: #94a3b8;
+            font-size: 10px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .stat-item .info .value {
+            color: #f1f5f9;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .stat-item .info .value.positive { color: #4ade80; }
+        .stat-item .info .value.negative { color: #f87171; }
+
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .history-item {
+            background: #1a2636;
+            border-radius: 10px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #1e2a3a;
+        }
+
+        .history-item .left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+        }
+
+        .history-item .left .emoji {
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .history-item .left .text {
+            color: #e2e8f0;
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .history-item .right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .history-item .right .amount {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .history-item .right .amount.positive { color: #4ade80; }
+        .history-item .right .amount.negative { color: #f87171; }
+
+        .history-item .right .time {
+            color: #64748b;
+            font-size: 10px;
+        }
+
+        .history-empty {
+            color: #475569;
+            text-align: center;
+            padding: 20px;
+            font-size: 13px;
+        }
+
+        .stats-total {
+            display: flex;
+            justify-content: space-between;
+            background: #1a2636;
+            border-radius: 12px;
+            padding: 10px 14px;
+            border: 1px solid #1e2a3a;
+            margin-bottom: 10px;
+        }
+
+        .stats-total .item {
+            text-align: center;
+        }
+
+        .stats-total .item .label {
+            color: #64748b;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stats-total .item .value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #f1f5f9;
+        }
+
+        .stats-total .item .value.good { color: #4ade80; }
+        .stats-total .item .value.bad { color: #f87171; }
+        .stats-total .item .value.total { color: #facc15; }
+
+        /* Настройки */
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #1e2a3a;
+            gap: 10px;
+        }
+
+        .settings-item:last-child {
+            border-bottom: none;
+        }
+
+        .settings-item .label {
+            color: #94a3b8;
+            font-size: 13px;
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+
+        .settings-item .label .emoji {
+            margin-right: 8px;
+        }
+
+        .settings-toggle {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            background: #2a3a50;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.3s;
+            flex-shrink: 0;
+        }
+
+        .settings-toggle.active {
+            background: #3b82f6;
+        }
+
+        .settings-toggle .slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .settings-toggle.active .slider {
+            transform: translateX(20px);
+        }
+
+        .settings-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            justify-content: flex-end;
+        }
+
+        .settings-item input[type="range"] {
+            width: 120px;
+            height: 4px;
+            -webkit-appearance: none;
+            background: #2a3a50;
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .settings-item input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #3b82f6;
+            cursor: pointer;
+        }
+
+        .settings-item input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #3b82f6;
+            cursor: pointer;
+            border: none;
+        }
+
+        .settings-item .value-display {
+            color: #f1f5f9;
+            font-size: 14px;
+            font-weight: 600;
+            min-width: 40px;
+            text-align: right;
+        }
+
+        .settings-item .theme-btns {
+            display: flex;
+            gap: 6px;
+        }
+
+        .settings-item .theme-btn {
+            padding: 6px 12px;
+            border: 1px solid #2a3a50;
+            border-radius: 8px;
+            background: #0b1120;
+            color: #94a3b8;
+            font-size: 11px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .settings-item .theme-btn.active {
+            border-color: #3b82f6;
+            color: #f1f5f9;
+            background: #1a2a5a;
+        }
+
+        .settings-item .color-btns {
+            display: flex;
+            gap: 6px;
+        }
+
+        .settings-item .color-btn {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+
+        .settings-item .color-btn:active {
+            transform: scale(0.9);
+        }
+
+        .settings-item .color-btn.active {
+            border-color: white;
+            transform: scale(1.1);
+        }
+
+        .settings-section-title {
+            color: #64748b;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 16px 0 8px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #1e2a3a;
+        }
+
+        .settings-section-title:first-child {
+            margin-top: 0;
+        }
+
+        .settings-item .action-btn {
+            padding: 8px 16px;
+            border: 1px solid #2a3a50;
+            border-radius: 10px;
+            background: #0b1120;
+            color: #94a3b8;
+            font-size: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.15s ease;
+        }
+
+        .settings-item .action-btn:active {
+            transform: scale(0.94);
+            background: #1a2636;
+        }
+
+        .settings-item .action-btn.primary {
+            border-color: #3b82f6;
+            color: #93c5fd;
+            background: #1a2a5a;
+        }
+
+        .settings-item .action-btn.primary:active {
+            background: #14224a;
+        }
+
         .footer {
             margin-top: 14px;
             display: flex;
@@ -447,6 +979,10 @@
             .btn .emoji { font-size: 14px; }
             .modal { padding: 16px; }
             .modal .time-presets { grid-template-columns: 1fr 1fr; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .chart-container { height: 80px; }
+            .chart-bar { max-width: 20px; }
+            .settings-item input[type="range"] { width: 80px; }
         }
 
         @media (min-width: 600px) {
@@ -456,19 +992,6 @@
             .header h1 { font-size: 26px; }
             .grid { gap: 10px; }
         }
-
-        .sound-toggle {
-            background: #2a3a50;
-            border: none;
-            color: #94a3b8;
-            padding: 4px 10px;
-            border-radius: 30px;
-            font-size: 14px;
-            cursor: pointer;
-            border: 1px solid #3b4d66;
-        }
-        .sound-toggle:active { transform: scale(0.92); }
-        .sound-toggle.on { color: #facc15; border-color: #8a722a; }
 
         .empty-msg {
             color: #475569;
@@ -488,10 +1011,8 @@
             border-radius: 12px;
             padding: 4px 4px 4px 8px;
             z-index: 10;
-            display: none;
             align-items: center;
             gap: 4px;
-            background: #0b1120;
         }
 
         .btn.show-time-input .time-input-wrapper {
@@ -535,14 +1056,6 @@
 
         .btn.show-time-input .btn-label {
             opacity: 0.2;
-        }
-
-        .btn .bonus-percent {
-            font-size: 9px;
-            color: #94a3b8;
-            background: rgba(0,0,0,0.3);
-            padding: 0 6px;
-            border-radius: 10px;
         }
 
         @media (max-width: 480px) {
@@ -652,12 +1165,128 @@
 <div class="app" id="app">
 
     <div class="header">
-        <h1>📚 Счёт <span class="age">7 лет</span></h1>
+        <h1>📚 Счёт</h1>
         <div class="header-btns">
-            <button class="sound-toggle on" id="soundToggle">🔊</button>
             <button class="btn-header" id="editToggle">✏️ Правка</button>
             <button class="btn-header" id="addBtn">➕</button>
             <button class="btn-header" id="resetBtn">↺</button>
+        </div>
+    </div>
+
+    <div style="display: flex; justify-content: flex-end; gap: 6px; margin-bottom: 6px; flex-wrap: wrap;">
+        <button class="settings-menu-btn" id="settingsToggle">⚙️ Настройки</button>
+        <button class="stats-menu-btn" id="statsToggle">📊 Статистика</button>
+    </div>
+
+    <!-- Панель настроек -->
+    <div class="settings-panel" id="settingsPanel">
+        <div class="settings-section-title">🔊 Звук</div>
+        <div class="settings-item">
+            <span class="label"><span class="emoji">🔊</span>Звук</span>
+            <div class="settings-toggle active" id="soundToggle">
+                <div class="slider"></div>
+            </div>
+        </div>
+        <div class="settings-item">
+            <span class="label"><span class="emoji">🔉</span>Громкость</span>
+            <div class="settings-row">
+                <input type="range" id="volumeSlider" min="0" max="100" value="50" />
+                <span class="value-display" id="volumeDisplay">50%</span>
+            </div>
+        </div>
+
+        <div class="settings-section-title">🎨 Оформление</div>
+        <div class="settings-item">
+            <span class="label"><span class="emoji">🌙</span>Тема</span>
+            <div class="theme-btns">
+                <button class="theme-btn active" data-theme="dark">🌙 Тёмная</button>
+                <button class="theme-btn" data-theme="light">☀️ Светлая</button>
+            </div>
+        </div>
+        <div class="settings-item">
+            <span class="label"><span class="emoji">🎨</span>Цвет баланса</span>
+            <div class="color-btns">
+                <div class="color-btn active" data-color="#facc15" style="background: #facc15;"></div>
+                <div class="color-btn" data-color="#4ade80" style="background: #4ade80;"></div>
+                <div class="color-btn" data-color="#3b82f6" style="background: #3b82f6;"></div>
+                <div class="color-btn" data-color="#f472b6" style="background: #f472b6;"></div>
+                <div class="color-btn" data-color="#a78bfa" style="background: #a78bfa;"></div>
+                <div class="color-btn" data-color="#fb923c" style="background: #fb923c;"></div>
+            </div>
+        </div>
+
+        <div class="settings-section-title">💾 Данные</div>
+        <div class="settings-item">
+            <span class="label"><span class="emoji">💾</span>Автосохранение</span>
+            <div class="settings-toggle active" id="autosaveToggle">
+                <div class="slider"></div>
+            </div>
+        </div>
+        <div class="settings-item">
+            <span class="label"><span class="emoji">📁</span>Папка сохранения</span>
+            <button class="action-btn" id="openDataFolderBtn">📂 Открыть</button>
+        </div>
+        <div class="settings-item">
+            <span class="label"><span class="emoji">💾</span>Экспорт данных</span>
+            <button class="action-btn" id="exportBtn">📤 Скачать</button>
+        </div>
+        <div class="settings-item">
+            <span class="label"><span class="emoji">📥</span>Импорт данных</span>
+            <button class="action-btn" id="importBtn">📥 Загрузить</button>
+        </div>
+
+        <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid #1e2a3a;">
+            <div style="color: #64748b; font-size: 11px; text-align: center;">
+                💾 Данные сохраняются автоматически<br />
+                <span style="color: #475569;">Версия 2.2</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Панель статистики -->
+    <div class="stats-panel" id="statsPanel">
+        <div class="chart-section">
+            <div class="chart-section-title">
+                📊 <span id="chartTitle">Заработано за 14 дней</span>
+                <span class="today-total" id="chartTotal">0 ₽</span>
+            </div>
+            <div class="chart-period-btns">
+                <button class="chart-period-btn" data-period="7">7 дней</button>
+                <button class="chart-period-btn active" data-period="14">14 дней</button>
+                <button class="chart-period-btn" data-period="30">30 дней</button>
+            </div>
+            <div class="chart-container" id="chartContainer"></div>
+        </div>
+
+        <div class="stats-total">
+            <div class="item">
+                <div class="label">Всего заработано</div>
+                <div class="value good" id="totalEarned">0 ₽</div>
+            </div>
+            <div class="item">
+                <div class="label">Всего потрачено</div>
+                <div class="value bad" id="totalSpent">0 ₽</div>
+            </div>
+            <div class="item">
+                <div class="label">Баланс</div>
+                <div class="value total" id="totalBalance">0 ₽</div>
+            </div>
+        </div>
+
+        <div class="stats-section">
+            <div class="stats-section-title">
+                📊 Статистика по заданиям
+                <span class="count" id="statsCount">0</span>
+            </div>
+            <div class="stats-grid" id="statsGrid"></div>
+        </div>
+
+        <div class="stats-section">
+            <div class="stats-section-title">
+                🕐 История операций
+                <span class="count" id="historyCount">0</span>
+            </div>
+            <div class="history-list" id="historyList"></div>
         </div>
     </div>
 
@@ -769,9 +1398,6 @@
 (function() {
     'use strict';
 
-    // =============================================================
-    //  БАЗОВЫЕ ДЕЙСТВИЯ
-    // =============================================================
     const DEFAULT_ACTIONS = [
         { group: '📚 Школа', label: 'Задание без капризов', emoji: '📝', price: 10, cls: 'green' },
         { group: '📚 Школа', label: 'Выучил стихотворение', emoji: '📜', price: 12, cls: 'yellow' },
@@ -788,9 +1414,6 @@
         { group: '🏆 Награды', label: 'Прочитал книгу до конца', emoji: '📚', price: 15, cls: 'gold' },
     ];
 
-    // =============================================================
-    //  СОСТОЯНИЕ
-    // =============================================================
     let actions = [];
     let balance = 0;
     let counts = {};
@@ -799,12 +1422,19 @@
     let editMode = false;
     let editingIndex = -1;
     let timerInterval = null;
-    const STORAGE_KEY = 'schoolCounter_custom_v4';
+    let statsOpen = false;
+    let settingsOpen = false;
+    let chartPeriod = 14;
+    const STORAGE_KEY = 'schoolCounter_custom_v5';
 
-    // =============================================================
-    //  ЗВУКИ
-    // =============================================================
-    let soundEnabled = true;
+    let settings = {
+        soundEnabled: true,
+        volume: 50,
+        theme: 'dark',
+        balanceColor: '#facc15',
+        autosaveEnabled: true
+    };
+
     let audioCtx = null;
     let soundQueue = [];
 
@@ -815,10 +1445,10 @@
         return audioCtx;
     }
 
-    function playTone(freq, duration, type, volume) {
+    function playTone(freq, duration, type, volumeLevel) {
         try {
             const ctx = initAudio();
-            if (!ctx || !soundEnabled || ctx.state === 'suspended') return;
+            if (!ctx || !settings.soundEnabled || ctx.state === 'suspended') return;
             
             if (soundQueue.length > 10) {
                 soundQueue.forEach(osc => {
@@ -831,7 +1461,8 @@
             const gain = ctx.createGain();
             osc.type = type || 'sine';
             osc.frequency.setValueAtTime(freq, ctx.currentTime);
-            gain.gain.setValueAtTime(Math.min(volume || 0.15, 0.3), ctx.currentTime);
+            const vol = (volumeLevel || 0.15) * (settings.volume / 50);
+            gain.gain.setValueAtTime(Math.min(vol, 0.3), ctx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
             osc.connect(gain);
             gain.connect(ctx.destination);
@@ -869,18 +1500,41 @@
         setTimeout(() => playTone(300, 0.1, 'sine', 0.06), 120);
     }
 
-    // =============================================================
-    //  DOM
-    // =============================================================
+    // DOM
     const balanceEl = document.getElementById('balanceDisplay');
     const goodEl = document.getElementById('goodCount');
     const badEl = document.getElementById('badCount');
     const container = document.getElementById('actionsContainer');
     const undoBtn = document.getElementById('undoBtn');
     const resetBtn = document.getElementById('resetBtn');
-    const soundToggle = document.getElementById('soundToggle');
     const editToggle = document.getElementById('editToggle');
     const addBtn = document.getElementById('addBtn');
+
+    const statsToggle = document.getElementById('statsToggle');
+    const statsPanel = document.getElementById('statsPanel');
+    const statsGrid = document.getElementById('statsGrid');
+    const historyList = document.getElementById('historyList');
+    const statsCount = document.getElementById('statsCount');
+    const historyCount = document.getElementById('historyCount');
+    const totalEarned = document.getElementById('totalEarned');
+    const totalSpent = document.getElementById('totalSpent');
+    const totalBalance = document.getElementById('totalBalance');
+    const chartContainer = document.getElementById('chartContainer');
+    const chartTotal = document.getElementById('chartTotal');
+    const chartTitle = document.getElementById('chartTitle');
+    const chartPeriodBtns = document.querySelectorAll('.chart-period-btn');
+
+    const settingsToggle = document.getElementById('settingsToggle');
+    const settingsPanel = document.getElementById('settingsPanel');
+    const soundToggle = document.getElementById('soundToggle');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const volumeDisplay = document.getElementById('volumeDisplay');
+    const autosaveToggle = document.getElementById('autosaveToggle');
+    const openDataFolderBtn = document.getElementById('openDataFolderBtn');
+    const exportBtn = document.getElementById('exportBtn');
+    const importBtn = document.getElementById('importBtn');
+    const themeBtns = document.querySelectorAll('.theme-btn');
+    const colorBtns = document.querySelectorAll('.color-btn');
 
     const modalOverlay = document.getElementById('modalOverlay');
     const modalTitle = document.getElementById('modalTitle');
@@ -918,13 +1572,13 @@
                 history = Array.isArray(data.history) ? data.history : [];
                 dailyTracker = data.dailyTracker || {};
                 
+                if (data.settings) {
+                    settings = { ...settings, ...data.settings };
+                }
+                
                 actions.forEach(a => {
-                    if (a.timeBonus && a.bonusPercent === undefined) {
-                        a.bonusPercent = 10;
-                    }
-                    if (a.daily && a.dailyHours === undefined) {
-                        a.dailyHours = 24;
-                    }
+                    if (a.timeBonus && a.bonusPercent === undefined) a.bonusPercent = 10;
+                    if (a.daily && a.dailyHours === undefined) a.dailyHours = 24;
                 });
                 return true;
             }
@@ -934,16 +1588,14 @@
     }
 
     function saveState() {
+        if (!settings.autosaveEnabled) return;
         try {
             localStorage.setItem(STORAGE_KEY, JSON.stringify({
-                actions, balance, counts, history, dailyTracker
+                actions, balance, counts, history, dailyTracker, settings
             }));
         } catch (_) {}
     }
 
-    // =============================================================
-    //  РАСЧЁТ БОНУСА ЗА ВРЕМЯ
-    // =============================================================
     function calculateTimeBonus(action, actualMinutes) {
         if (!action.timeBonus) return action.price;
         const baseTime = action.baseTime || 5;
@@ -957,17 +1609,12 @@
         return Math.round(total * 10) / 10;
     }
 
-    // =============================================================
-    //  ПРОВЕРКА ДНЕВНОГО ЛИМИТА
-    // =============================================================
     function isDailyAvailable(index) {
         if (!actions[index] || !actions[index].daily) return true;
         const last = dailyTracker[index];
         if (!last) return true;
-        const now = Date.now();
-        const diff = now - last;
-        const hours = actions[index].dailyHours || 24;
-        const ms = hours * 3600000;
+        const diff = Date.now() - last;
+        const ms = (actions[index].dailyHours || 24) * 3600000;
         return diff >= ms;
     }
 
@@ -975,10 +1622,8 @@
         if (!actions[index] || !actions[index].daily) return 0;
         const last = dailyTracker[index];
         if (!last) return 0;
-        const now = Date.now();
-        const diff = now - last;
-        const hours = actions[index].dailyHours || 24;
-        const ms = hours * 3600000;
+        const diff = Date.now() - last;
+        const ms = (actions[index].dailyHours || 24) * 3600000;
         if (diff >= ms) return 0;
         return Math.ceil((ms - diff) / 1000);
     }
@@ -988,24 +1633,20 @@
         const h = Math.floor(seconds / 3600);
         const m = Math.floor((seconds % 3600) / 60);
         const s = Math.floor(seconds % 60);
-        if (h > 0) {
-            return `${h}ч ${m}м ${s}с`;
-        } else if (m > 0) {
-            return `${m}м ${s}с`;
-        } else {
-            return `${s}с`;
-        }
+        if (h > 0) return `${h}ч ${m}м ${s}с`;
+        if (m > 0) return `${m}м ${s}с`;
+        return `${s}с`;
     }
 
     // =============================================================
-    //  ОБНОВЛЕНИЕ UI (С ОКРУГЛЕНИЕМ БАЛАНСА)
+    //  ОБНОВЛЕНИЕ UI
     // =============================================================
     function updateUI() {
-        // Округляем баланс до десятых при отображении
         const roundedBalance = Math.round(balance * 10) / 10;
         const prefix = roundedBalance < 0 ? '-' : '';
         balanceEl.textContent = `${prefix}${Math.abs(roundedBalance).toFixed(1)} ₽`;
         balanceEl.className = 'balance' + (roundedBalance < 0 ? ' negative' : '');
+        balanceEl.style.color = roundedBalance < 0 ? '#f87171' : settings.balanceColor;
 
         let good = 0, bad = 0;
         actions.forEach((a, i) => {
@@ -1021,11 +1662,193 @@
         editToggle.className = 'btn-header' + (editMode ? ' active' : '');
         saveState();
         renderActions();
+        if (statsOpen) renderStats();
+    }
+
+    function updateSettingsUI() {
+        soundToggle.className = 'settings-toggle' + (settings.soundEnabled ? ' active' : '');
+        volumeSlider.value = settings.volume;
+        volumeDisplay.textContent = settings.volume + '%';
+        autosaveToggle.className = 'settings-toggle' + (settings.autosaveEnabled ? ' active' : '');
+
+        themeBtns.forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.theme === settings.theme);
+        });
+
+        colorBtns.forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.color === settings.balanceColor);
+        });
+
+        document.body.classList.toggle('light-theme', settings.theme === 'light');
+    }
+
+    function toggleSettings() {
+        settingsOpen = !settingsOpen;
+        settingsToggle.textContent = settingsOpen ? '⚙️ Скрыть' : '⚙️ Настройки';
+        settingsToggle.classList.toggle('active', settingsOpen);
+        settingsPanel.classList.toggle('show', settingsOpen);
+        updateSettingsUI();
     }
 
     // =============================================================
-    //  ТАЙМЕР ДЛЯ КНОПОК
+    //  СТАТИСТИКА
     // =============================================================
+    function renderStats() {
+        if (!statsOpen) return;
+
+        const today = new Date();
+        const dayData = {};
+        
+        for (let i = 0; i < chartPeriod; i++) {
+            const d = new Date();
+            d.setDate(d.getDate() - i);
+            d.setHours(0, 0, 0, 0);
+            const key = d.getTime();
+            dayData[key] = { earned: 0, spent: 0, label: formatDayLabel(d) };
+        }
+
+        history.forEach(h => {
+            if (!h.timestamp) return;
+            const d = new Date(h.timestamp);
+            d.setHours(0, 0, 0, 0);
+            const key = d.getTime();
+            if (dayData[key]) {
+                if (h.price > 0) dayData[key].earned += h.price;
+                else dayData[key].spent += Math.abs(h.price);
+            }
+        });
+
+        const sortedKeys = Object.keys(dayData).map(Number).sort((a, b) => a - b);
+        
+        let maxValue = 0;
+        let totalPeriod = 0;
+        sortedKeys.forEach(key => {
+            const earned = dayData[key].earned;
+            if (earned > maxValue) maxValue = earned;
+            totalPeriod += earned;
+        });
+
+        chartTitle.textContent = `Заработано за ${chartPeriod} дней`;
+        chartTotal.textContent = totalPeriod.toFixed(1) + ' ₽';
+
+        if (sortedKeys.length === 0 || maxValue === 0) {
+            chartContainer.innerHTML = `<div class="history-empty" style="width:100%; padding:10px;">Нет данных за период</div>`;
+        } else {
+            const maxHeight = 100;
+            let chartHtml = '';
+            
+            sortedKeys.forEach(key => {
+                const day = dayData[key];
+                const val = day.earned;
+                const height = maxValue > 0 ? (val / maxValue) * maxHeight : 0;
+                
+                chartHtml += `
+                    <div class="chart-bar-wrapper">
+                        <div class="chart-bar-value">${val > 0 ? '+' + val.toFixed(1) : ''}</div>
+                        <div class="chart-bar" style="height: ${Math.max(height, 4)}px;"></div>
+                        <div class="chart-bar-label">${day.label}</div>
+                    </div>
+                `;
+            });
+            chartContainer.innerHTML = chartHtml;
+        }
+
+        let earned = 0, spent = 0;
+        history.forEach(h => {
+            if (h.price > 0) earned += h.price;
+            else spent += Math.abs(h.price);
+        });
+
+        totalEarned.textContent = earned.toFixed(1) + ' ₽';
+        totalSpent.textContent = spent.toFixed(1) + ' ₽';
+        totalBalance.textContent = (earned - spent).toFixed(1) + ' ₽';
+
+        const statsMap = {};
+        actions.forEach((a, i) => {
+            const count = counts[i] || 0;
+            if (count > 0) {
+                statsMap[i] = {
+                    label: a.label,
+                    emoji: a.emoji || '📌',
+                    count: count,
+                    price: a.price
+                };
+            }
+        });
+
+        const statsKeys = Object.keys(statsMap);
+        statsCount.textContent = statsKeys.length;
+
+        if (statsKeys.length === 0) {
+            statsGrid.innerHTML = `<div class="history-empty">Нет выполненных заданий</div>`;
+        } else {
+            let statsHtml = '';
+            statsKeys.forEach(key => {
+                const s = statsMap[key];
+                const sign = s.price >= 0 ? '+' : '';
+                const valueClass = s.price >= 0 ? 'positive' : 'negative';
+                statsHtml += `
+                    <div class="stat-item">
+                        <span class="emoji">${s.emoji}</span>
+                        <div class="info">
+                            <div class="label">${s.label}</div>
+                            <div class="value ${valueClass}">${s.count} × ${sign}${s.price} ₽</div>
+                        </div>
+                    </div>
+                `;
+            });
+            statsGrid.innerHTML = statsHtml;
+        }
+
+        historyCount.textContent = history.length;
+
+        if (history.length === 0) {
+            historyList.innerHTML = `<div class="history-empty">История операций пуста</div>`;
+        } else {
+            let historyHtml = '';
+            const showHistory = [...history].reverse().slice(0, 50);
+            showHistory.forEach(h => {
+                const action = actions[h.index];
+                if (!action) return;
+                const emoji = action.emoji || '📌';
+                const label = action.label || 'Задание';
+                const price = h.price;
+                const sign = price >= 0 ? '+' : '';
+                const amountClass = price >= 0 ? 'positive' : 'negative';
+                const time = h.timestamp ? new Date(h.timestamp).toLocaleString('ru-RU', {
+                    day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'
+                }) : '';
+                
+                historyHtml += `
+                    <div class="history-item">
+                        <div class="left">
+                            <span class="emoji">${emoji}</span>
+                            <span class="text">${label}</span>
+                        </div>
+                        <div class="right">
+                            <span class="amount ${amountClass}">${sign}${price.toFixed(1)} ₽</span>
+                            ${time ? `<span class="time">${time}</span>` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            historyList.innerHTML = historyHtml;
+        }
+    }
+
+    function formatDayLabel(date) {
+        const months = ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
+        return `${date.getDate()} ${months[date.getMonth()]}`;
+    }
+
+    function toggleStats() {
+        statsOpen = !statsOpen;
+        statsToggle.textContent = statsOpen ? '📊 Скрыть' : '📊 Статистика';
+        statsToggle.classList.toggle('active', statsOpen);
+        statsPanel.classList.toggle('show', statsOpen);
+        if (statsOpen) renderStats();
+    }
+
     function startTimer() {
         if (timerInterval) clearInterval(timerInterval);
         timerInterval = setInterval(() => {
@@ -1037,10 +1860,8 @@
                 const cooldown = getDailyCooldown(index);
                 if (cooldown > 0) {
                     el.textContent = '⏳ ' + formatCooldown(cooldown);
-                    el.style.display = 'inline';
                 } else {
                     el.textContent = '✅ Готово';
-                    el.style.display = 'inline';
                     const badge = btn.querySelector('.badge-daily');
                     if (badge) {
                         badge.classList.remove('locked');
@@ -1052,13 +1873,11 @@
     }
 
     // =============================================================
-    //  ДЕЙСТВИЕ С ВВОДОМ ВРЕМЕНИ (с кнопкой подтверждения)
+    //  ДЕЙСТВИЯ
     // =============================================================
     function showTimeInput(index) {
         document.querySelectorAll('.btn.show-time-input').forEach(b => {
-            if (parseInt(b.dataset.index, 10) !== index) {
-                b.classList.remove('show-time-input');
-            }
+            if (parseInt(b.dataset.index, 10) !== index) b.classList.remove('show-time-input');
         });
         
         const btns = document.querySelectorAll('.btn');
@@ -1067,10 +1886,7 @@
             const input = btns[index].querySelector('.time-input');
             if (input) {
                 input.value = actions[index].baseTime || 5;
-                setTimeout(() => {
-                    input.focus();
-                    input.select();
-                }, 100);
+                setTimeout(() => { input.focus(); input.select(); }, 100);
             }
         }
     }
@@ -1086,8 +1902,7 @@
         const input = btn.querySelector('.time-input');
         if (!input) return;
         
-        const value = input.value;
-        const minutes = parseFloat(value);
+        const minutes = parseFloat(input.value);
         if (isNaN(minutes) || minutes < 0) {
             alert('Пожалуйста, введите корректное время в минутах');
             return;
@@ -1103,14 +1918,12 @@
 
         if (action.daily) dailyTracker[index] = Date.now();
 
-        if (soundEnabled) {
-            if (price > 0) playCoin();
-            else playBad();
-        }
+        if (price > 0) playCoin();
+        else playBad();
 
         if (!counts[index]) counts[index] = 0;
         counts[index] += 1;
-        history.push({ index, price: price, actualMinutes: minutes });
+        history.push({ index, price, actualMinutes: minutes, timestamp: Date.now() });
         balance += price;
         
         btn.classList.remove('show-time-input');
@@ -1121,9 +1934,6 @@
         btn.classList.add('pop');
     }
 
-    // =============================================================
-    //  ДЕЙСТВИЕ БЕЗ ВРЕМЕНИ
-    // =============================================================
     function handleAction(index) {
         const action = actions[index];
         if (!action) return;
@@ -1140,17 +1950,14 @@
         }
 
         const price = action.price || 0;
-
         if (action.daily) dailyTracker[index] = Date.now();
 
-        if (soundEnabled) {
-            if (price > 0) playCoin();
-            else playBad();
-        }
+        if (price > 0) playCoin();
+        else playBad();
 
         if (!counts[index]) counts[index] = 0;
         counts[index] += 1;
-        history.push({ index, price: price });
+        history.push({ index, price, timestamp: Date.now() });
         balance += price;
         updateUI();
 
@@ -1162,12 +1969,9 @@
         }
     }
 
-    // =============================================================
-    //  ОТМЕНА
-    // =============================================================
     function undoLast() {
         if (history.length === 0) return;
-        if (soundEnabled) playUndo();
+        playUndo();
         const last = history.pop();
         balance -= last.price;
 
@@ -1179,9 +1983,7 @@
         const action = actions[last.index];
         if (action && action.daily) {
             const lastSameIndex = history.find(h => h.index === last.index);
-            if (!lastSameIndex) {
-                delete dailyTracker[last.index];
-            }
+            if (!lastSameIndex) delete dailyTracker[last.index];
         }
 
         updateUI();
@@ -1190,12 +1992,9 @@
         undoBtn.classList.add('pop');
     }
 
-    // =============================================================
-    //  СБРОС (с красивой плашкой подтверждения)
-    // =============================================================
     function showResetConfirm() {
         resetConfirmOverlay.classList.add('show');
-        if (soundEnabled) playReset();
+        playReset();
     }
 
     function hideResetConfirm() {
@@ -1203,7 +2002,7 @@
     }
 
     function executeReset() {
-        if (soundEnabled) playReset();
+        playReset();
         
         balance = 0;
         counts = {};
@@ -1213,28 +2012,19 @@
         hideResetConfirm();
         updateUI();
         
-        document.querySelectorAll('.btn').forEach(b => {
-            b.classList.remove('pop', 'show-time-input');
-        });
-        
-        document.querySelectorAll('.btn.show-time-input').forEach(b => {
-            b.classList.remove('show-time-input');
-        });
-        
+        document.querySelectorAll('.btn').forEach(b => b.classList.remove('pop', 'show-time-input'));
         saveState();
         
         balanceEl.classList.remove('pop');
         void balanceEl.offsetWidth;
         balanceEl.classList.add('pop');
-        
-        setTimeout(() => {
-            if (soundEnabled) playReset();
-        }, 100);
     }
 
     // =============================================================
-    //  РЕНДЕР КНОПОК
+    //  РЕНДЕР КНОПОК (ИСПРАВЛЕН БАГ С ОБРАБОТЧИКАМИ)
     // =============================================================
+    let actionsContainerHandler = null;
+    
     function renderActions() {
         if (actions.length === 0) {
             container.innerHTML = `<div class="empty-msg">Нет заданий. Нажмите ➕ чтобы добавить</div>`;
@@ -1259,23 +2049,18 @@
 
                 let badges = '';
                 if (item.timeBonus) {
-                    const percent = item.bonusPercent || 10;
-                    badges += ` <span class="badge-time">⏱️ ${item.baseTime || 5}мин +${percent}%/мин</span>`;
+                    badges += ` <span class="badge-time">⏱️ ${item.baseTime || 5}мин +${item.bonusPercent || 10}%/мин</span>`;
                 }
                 
                 let timerHtml = '';
                 if (item.daily) {
-                    const avail = isDailyAvailable(item.index);
-                    const locked = !avail;
+                    const locked = !isDailyAvailable(item.index);
                     const cooldown = getDailyCooldown(item.index);
                     const hours = item.dailyHours || 24;
                     badges += ` <span class="badge-daily${locked ? ' locked' : ''}">${locked ? '🔒' : '🔓'} ${hours}ч</span>`;
-                    
-                    if (locked) {
-                        timerHtml = ` <span class="badge-timer">⏳ ${formatCooldown(cooldown)}</span>`;
-                    } else {
-                        timerHtml = ` <span class="badge-timer">✅ Готово</span>`;
-                    }
+                    timerHtml = locked 
+                        ? ` <span class="badge-timer">⏳ ${formatCooldown(cooldown)}</span>`
+                        : ` <span class="badge-timer">✅ Готово</span>`;
                 }
 
                 html += `
@@ -1299,60 +2084,80 @@
 
         container.innerHTML = html;
 
-        container.querySelectorAll('.btn').forEach(btn => {
-            const idx = parseInt(btn.dataset.index, 10);
+        // Удаляем старый обработчик, если был
+        if (actionsContainerHandler) {
+            container.removeEventListener('click', actionsContainerHandler);
+        }
+
+        // Единый обработчик через делегирование событий (ИСПРАВЛЕНИЕ БАГА)
+        actionsContainerHandler = function(e) {
+            const target = e.target;
             
-            btn.addEventListener('click', (e) => {
-                if (e.target.classList.contains('time-input')) return;
-                if (e.target.classList.contains('time-confirm')) return;
-                if (e.target.classList.contains('btn-del')) return;
-                if (e.target.classList.contains('btn-edit')) return;
-                if (e.target.closest('.time-input-wrapper')) return;
+            // Кнопка подтверждения времени
+            if (target.classList.contains('time-confirm')) {
+                e.stopPropagation();
+                const idx = parseInt(target.dataset.index, 10);
+                if (!isNaN(idx)) confirmTimeInput(idx);
+                return;
+            }
+            
+            // Поле ввода времени
+            if (target.classList.contains('time-input')) {
+                e.stopPropagation();
+                return;
+            }
+            
+            // Кнопка удаления
+            if (target.classList.contains('btn-del')) {
+                e.stopPropagation();
+                const idx = parseInt(target.dataset.index, 10);
+                if (!isNaN(idx)) deleteAction(idx);
+                return;
+            }
+            
+            // Кнопка редактирования
+            if (target.classList.contains('btn-edit')) {
+                e.stopPropagation();
+                const idx = parseInt(target.dataset.index, 10);
+                if (!isNaN(idx)) openEditModal(idx);
+                return;
+            }
+            
+            // Клик по обёртке ввода
+            if (target.closest('.time-input-wrapper')) {
+                e.stopPropagation();
+                return;
+            }
+            
+            // Клик по самой кнопке
+            const btn = target.closest('.btn');
+            if (btn && !editMode) {
+                const idx = parseInt(btn.dataset.index, 10);
+                if (!isNaN(idx)) handleAction(idx);
+            }
+        };
+
+        container.addEventListener('click', actionsContainerHandler);
+
+        // Делегирование для keydown на поле ввода
+        container.addEventListener('keydown', function(e) {
+            if (e.target.classList.contains('time-input')) {
+                const btn = e.target.closest('.btn');
+                if (!btn) return;
+                const idx = parseInt(btn.dataset.index, 10);
+                if (isNaN(idx)) return;
                 
-                if (!editMode) {
-                    handleAction(idx);
-                }
-            });
-
-            const confirmBtn = btn.querySelector('.time-confirm');
-            if (confirmBtn) {
-                confirmBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
+                if (e.key === 'Enter') {
+                    e.preventDefault();
                     confirmTimeInput(idx);
-                });
-            }
-
-            const input = btn.querySelector('.time-input');
-            if (input) {
-                input.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter') {
-                        e.preventDefault();
-                        confirmTimeInput(idx);
-                    }
-                    if (e.key === 'Escape') {
-                        btn.classList.remove('show-time-input');
-                    }
-                });
-                input.addEventListener('click', (e) => e.stopPropagation());
+                }
+                if (e.key === 'Escape') {
+                    btn.classList.remove('show-time-input');
+                }
             }
         });
 
-        container.querySelectorAll('.btn-del').forEach(el => {
-            el.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const idx = parseInt(el.dataset.index, 10);
-                deleteAction(idx);
-            });
-        });
-
-        container.querySelectorAll('.btn-edit').forEach(el => {
-            el.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const idx = parseInt(el.dataset.index, 10);
-                openEditModal(idx);
-            });
-        });
-
+        // Делегирование для клика вне поля ввода (закрытие)
         document.addEventListener('click', function closeTimeInputs(e) {
             if (!e.target.closest('.btn.show-time-input')) {
                 document.querySelectorAll('.btn.show-time-input').forEach(b => {
@@ -1369,21 +2174,17 @@
         if (!confirm(`Удалить задание "${actions[index].label}"?`)) return;
         actions.splice(index, 1);
 
-        const newCounts = {};
-        const newHistory = [];
-        const newDaily = {};
+        const newCounts = {}, newHistory = [], newDaily = {};
 
         for (const [key, val] of Object.entries(counts)) {
             const k = parseInt(key, 10);
             if (k < index) newCounts[k] = val;
             else if (k > index) newCounts[k - 1] = val;
         }
-
         for (const h of history) {
             if (h.index < index) newHistory.push(h);
             else if (h.index > index) newHistory.push({ ...h, index: h.index - 1 });
         }
-
         for (const [key, val] of Object.entries(dailyTracker)) {
             const k = parseInt(key, 10);
             if (k < index) newDaily[k] = val;
@@ -1441,8 +2242,7 @@
         
         timePresets.forEach(btn => {
             btn.classList.remove('active');
-            const hours = parseFloat(btn.dataset.hours);
-            if (Math.abs(hours - (action.dailyHours || 24)) < 0.001) {
+            if (Math.abs(parseFloat(btn.dataset.hours) - (action.dailyHours || 24)) < 0.001) {
                 btn.classList.add('active');
             }
         });
@@ -1468,36 +2268,19 @@
         const dailyHours = parseFloat(modalDailyHours.value) || 24;
 
         if (!label) { alert('Введите название!'); return; }
-        if (dailyHours < 0.0167) { alert('Минимальный период блокировки — 1 минута (0.0167 часов)'); return; }
+        if (dailyHours < 0.0167) { alert('Минимальный период — 1 минута'); return; }
 
         if (editingIndex >= 0 && editingIndex < actions.length) {
-            actions[editingIndex].label = label;
-            actions[editingIndex].emoji = emoji;
-            actions[editingIndex].price = price;
-            actions[editingIndex].group = group;
-            actions[editingIndex].timeBonus = timeBonus;
-            actions[editingIndex].daily = daily;
-            actions[editingIndex].baseTime = baseTime;
-            actions[editingIndex].basePrice = basePrice;
-            actions[editingIndex].bonusPercent = bonusPercent;
-            actions[editingIndex].dailyHours = dailyHours;
-            
-            if (timeBonus) {
-                actions[editingIndex].cls = price > 0 ? 'green' : 'red';
-            } else {
-                actions[editingIndex].cls = price > 0 ? 'green' : 'red';
-                if (price > 20) actions[editingIndex].cls = 'gold';
-            }
+            Object.assign(actions[editingIndex], {
+                label, emoji, price, group, timeBonus, daily,
+                baseTime, basePrice, bonusPercent, dailyHours
+            });
+            actions[editingIndex].cls = price > 20 ? 'gold' : (price > 0 ? 'green' : 'red');
         } else {
-            const cls = price > 0 ? 'green' : 'red';
+            const cls = price > 20 ? 'gold' : (price > 0 ? 'green' : 'red');
             actions.push({
                 group, label, emoji, price, cls,
-                timeBonus: timeBonus || false,
-                daily: daily || false,
-                baseTime: baseTime || 5,
-                basePrice: basePrice || price,
-                bonusPercent: bonusPercent || 10,
-                dailyHours: dailyHours || 24,
+                timeBonus, daily, baseTime, basePrice, bonusPercent, dailyHours
             });
         }
 
@@ -1523,20 +2306,108 @@
         modalDailyHours.value = hours;
     }
 
-    // =============================================================
-    //  ЗВУК ВКЛ/ВЫКЛ
-    // =============================================================
-    function toggleSound() {
-        soundEnabled = !soundEnabled;
-        soundToggle.textContent = soundEnabled ? '🔊' : '🔇';
-        soundToggle.className = 'sound-toggle' + (soundEnabled ? ' on' : '');
-        if (soundEnabled) initAudio();
-    }
-
     function toggleEditMode() {
         editMode = !editMode;
         document.querySelectorAll('.btn.show-time-input').forEach(b => b.classList.remove('show-time-input'));
         updateUI();
+    }
+
+    // =============================================================
+    //  ЭКСПОРТ / ИМПОРТ / ПАПКА
+    // =============================================================
+    function openDataFolder() {
+        // Показываем информацию о папке сохранения
+        const data = {
+            actions, balance, counts, history, dailyTracker, settings
+        };
+        const json = JSON.stringify(data, null, 2);
+        const blob = new Blob([json], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        
+        // Открываем окно с информацией
+        const size = (blob.size / 1024).toFixed(1);
+        const info = `
+📁 ПАПКА СОХРАНЕНИЯ ДАННЫХ
+
+💾 Приложение хранит данные в localStorage браузера.
+
+📍 Расположение:
+- Chrome/Edge: %LocalAppData%\\Google\\Chrome\\User Data\\Default\\Local Storage
+- Firefox: профиль пользователя → webappsstore.sqlite
+- Safari: ~/Library/Safari/LocalStorage
+
+📊 Текущий размер данных: ${size} КБ
+📝 Заданий: ${actions.length}
+📜 Записей в истории: ${history.length}
+
+💡 Совет: используйте экспорт для создания резервной копии.
+
+Хотите скачать файл с данными?
+        `;
+        
+        if (confirm(info)) {
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `school-counter-backup-${new Date().toISOString().slice(0,10)}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    }
+
+    function exportData() {
+        const data = {
+            actions, balance, counts, history, dailyTracker, settings,
+            exportDate: new Date().toISOString(),
+            version: '2.2'
+        };
+        const json = JSON.stringify(data, null, 2);
+        const blob = new Blob([json], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `school-counter-backup-${new Date().toISOString().slice(0,10)}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    function importData() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.json,application/json';
+        input.onchange = (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                try {
+                    const data = JSON.parse(ev.target.result);
+                    if (!data.actions) throw new Error('Неверный формат файла');
+                    
+                    if (confirm('Импортировать данные? Текущие данные будут заменены.')) {
+                        actions = data.actions || [...DEFAULT_ACTIONS];
+                        balance = data.balance ?? 0;
+                        counts = data.counts ?? {};
+                        history = Array.isArray(data.history) ? data.history : [];
+                        dailyTracker = data.dailyTracker || {};
+                        if (data.settings) settings = { ...settings, ...data.settings };
+                        
+                        actions.forEach(a => {
+                            if (a.timeBonus && a.bonusPercent === undefined) a.bonusPercent = 10;
+                            if (a.daily && a.dailyHours === undefined) a.dailyHours = 24;
+                        });
+                        
+                        updateUI();
+                        updateSettingsUI();
+                        saveState();
+                        alert('✅ Данные успешно импортированы!');
+                    }
+                } catch (err) {
+                    alert('❌ Ошибка импорта: ' + err.message);
+                }
+            };
+            reader.readAsText(file);
+        };
+        input.click();
     }
 
     // =============================================================
@@ -1545,25 +2416,74 @@
     loadState();
     renderActions();
     updateUI();
+    updateSettingsUI();
     startTimer();
 
-    timePresets.forEach(btn => {
+    // Статистика
+    statsToggle.addEventListener('click', toggleStats);
+    chartPeriodBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            const hours = parseFloat(btn.dataset.hours);
-            setDailyPreset(hours);
+            chartPeriodBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            chartPeriod = parseInt(btn.dataset.period);
+            renderStats();
         });
     });
 
+    // Настройки
+    settingsToggle.addEventListener('click', toggleSettings);
+    soundToggle.addEventListener('click', () => {
+        settings.soundEnabled = !settings.soundEnabled;
+        updateSettingsUI();
+        saveState();
+        if (settings.soundEnabled) { initAudio(); playCoin(); }
+    });
+    volumeSlider.addEventListener('input', () => {
+        settings.volume = parseInt(volumeSlider.value);
+        volumeDisplay.textContent = settings.volume + '%';
+        saveState();
+    });
+    volumeSlider.addEventListener('change', () => {
+        if (settings.soundEnabled) playCoin();
+    });
+    autosaveToggle.addEventListener('click', () => {
+        settings.autosaveEnabled = !settings.autosaveEnabled;
+        updateSettingsUI();
+        saveState();
+    });
+    openDataFolderBtn.addEventListener('click', openDataFolder);
+    exportBtn.addEventListener('click', exportData);
+    importBtn.addEventListener('click', importData);
+    themeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            settings.theme = btn.dataset.theme;
+            updateSettingsUI();
+            saveState();
+        });
+    });
+    colorBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            settings.balanceColor = btn.dataset.color;
+            updateSettingsUI();
+            updateUI();
+            saveState();
+        });
+    });
+
+    // Пресеты времени
+    timePresets.forEach(btn => {
+        btn.addEventListener('click', () => setDailyPreset(parseFloat(btn.dataset.hours)));
+    });
     modalDailyHours.addEventListener('input', () => {
         const val = parseFloat(modalDailyHours.value);
         if (!isNaN(val)) {
             timePresets.forEach(btn => {
-                const hours = parseFloat(btn.dataset.hours);
-                btn.classList.toggle('active', Math.abs(hours - val) < 0.001);
+                btn.classList.toggle('active', Math.abs(parseFloat(btn.dataset.hours) - val) < 0.001);
             });
         }
     });
 
+    // Сброс
     resetBtn.addEventListener('click', showResetConfirm);
     resetCancelBtn.addEventListener('click', hideResetConfirm);
     resetConfirmBtn.addEventListener('click', executeReset);
@@ -1571,13 +2491,12 @@
         if (e.target === resetConfirmOverlay) hideResetConfirm();
     });
 
+    // Основные
     undoBtn.addEventListener('click', undoLast);
-    soundToggle.addEventListener('click', toggleSound);
     editToggle.addEventListener('click', toggleEditMode);
     addBtn.addEventListener('click', openAddModal);
     modalTimeBonus.addEventListener('change', toggleTimeSettings);
     modalDaily.addEventListener('change', toggleDailySettings);
-
     modalCancel.addEventListener('click', closeModal);
     modalSave.addEventListener('click', saveModal);
     modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
